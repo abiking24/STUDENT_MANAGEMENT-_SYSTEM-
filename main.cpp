@@ -431,12 +431,72 @@ Node* temp = head;
 
     
 
+   void showAll() {
+        if (head == NULL) {
+            cout << "\nList is Empty!\n";
+            return;
+        }
+
+        int sortChoice;
+        cout << "\nSort by:\n";
+        cout << "1. ID (Ascending)\n";
+        cout << "2. ID (Descending)\n";
+        cout << "3. Name (A-Z)\n";
+        cout << "4. Name (Z-A)\n";
+        cout << "0. Cancel\n";
+        cout << "Enter choice: ";
+        cin >> sortChoice;
+
+        if (sortChoice == 0) {
+            cout << "Operation cancelled.\n";
+            return;
+        }
+
+        // Collect all nodes
+        vector<Node*> nodes;
+        Node* temp = head;
+        while (temp != NULL) {
+            nodes.push_back(temp);
+            temp = temp->next;
+        }
+
+        // Sort based on choice
+        switch (sortChoice) {
+            case 1:
+                sort(nodes.begin(), nodes.end(),
+                    [](Node* a, Node* b) { return a->roll_no < b->roll_no; });
+                break;
+            case 2:
+                sort(nodes.begin(), nodes.end(),
+                    [](Node* a, Node* b) { return a->roll_no > b->roll_no; });
+                break;
+            case 3:
+                sort(nodes.begin(), nodes.end(),
+                    [](Node* a, Node* b) { return a->name < b->name; });
+                break;
+            case 4:
+                sort(nodes.begin(), nodes.end(),
+                    [](Node* a, Node* b) { return a->name > b->name; });
+                break;
+            default:
+                cout << "Invalid choice. Showing unsorted list.\n";
+        }
+
+        cout << "\nAll Student Records (" << nodes.size() << " records):\n";
+        cout << "----------------------------------------\n";
+        for (Node* node : nodes) {
+            cout << "ID: " << node->roll_no << endl
+                 << "Name: " << node->name << endl
+                 << "Course: " << node->course << endl
+                 << "Qualification: " << node->quali << endl
+                 << "Phone: " << node->phone_no << endl
+                 << "Address: " << node->address << endl
+                 << "----------------------------------------\n";
+        }
+    }
+};
 
 
-
-
-    
-    
 int main() {
     LinkedList list;
     int choice;
