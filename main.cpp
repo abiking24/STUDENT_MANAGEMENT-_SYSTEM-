@@ -188,6 +188,110 @@ while (true) {
     }
      
 
+   
+
+    void search() {
+        if (head == NULL) {
+            cout << "\nList is Empty!\n";
+            return;
+        }
+
+        int choice;
+        cout << "\nSearch by:\n";
+        cout << "1. Student ID\n";
+        cout << "2. Name\n";
+        cout << "3. Course\n";
+        cout << "4. Qualification\n";
+        cout << "0. Cancel\n";
+        cout << "Enter choice: ";
+        cin >> choice;
+
+        if (choice == 0) {
+            cout << "Search cancelled.\n";
+            return;
+        }
+
+        cin.ignore();
+        string searchTerm;
+        vector<Node*> results;
+
+        switch (choice) {
+            case 1: {
+                int id;
+                cout << "Enter Student ID: ";
+                cin >> id;
+                cin.ignore();
+                Node* temp = head;
+                while (temp != NULL) {
+                    if (temp->roll_no == id) {
+                        results.push_back(temp);
+                        break;
+                    }
+                    temp = temp->next;
+                }
+                break;
+            }
+            case 2: {
+                cout << "Enter Name: ";
+                getline(cin, searchTerm);
+                Node* temp = head;
+                while (temp != NULL) {
+                    if (temp->name.find(searchTerm) != string::npos) {
+                        results.push_back(temp);
+                    }
+                    temp = temp->next;
+                }
+                break;
+            }
+            case 3: {
+                cout << "Enter Course: ";
+                getline(cin, searchTerm);
+                Node* temp = head;
+                while (temp != NULL) {
+                    if (temp->course.find(searchTerm) != string::npos) {
+                        results.push_back(temp);
+                    }
+                    temp = temp->next;
+                }
+                break;
+            }
+            case 4: {
+                cout << "Enter Qualification: ";
+                getline(cin, searchTerm);
+                Node* temp = head;
+                while (temp != NULL) {
+                    if (temp->quali.find(searchTerm) != string::npos) {
+                        results.push_back(temp);
+                    }
+                    temp = temp->next;
+                }
+                break;
+            }
+            default:
+                cout << "Invalid choice!\n";
+                return;
+        }
+
+        if (results.empty()) {
+            cout << "\nNo matching records found!\n";
+            return;
+        }
+
+        cout << "\nFound " << results.size() << " matching record(s):\n";
+        cout << "----------------------------------------\n";
+        for (Node* node : results) {
+            cout << "ID: " << node->roll_no << endl
+                 << "Name: " << node->name << endl
+
+<< "Course: " << node->course << endl
+                 << "Qualification: " << node->quali << endl
+                 << "Phone: " << node->phone_no << endl
+                 << "Address: " << node->address << endl
+                 << "----------------------------------------\n";
+        }
+    }
+
+
 
 
 
