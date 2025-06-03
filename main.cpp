@@ -100,3 +100,53 @@ public:
         return true;
     }
     
+
+
+
+
+
+
+
+
+
+    
+    
+int main() {
+    LinkedList list;
+    int choice;
+
+    do {
+        system("cls");
+        cout << "\nSTUDENT MANAGEMENT SYSTEM";
+        cout << "\n1. Insert Record";
+        cout << "\n2. Search Record";
+        cout << "\n3. Count Records";
+        cout << "\n4. Update Record";
+        cout << "\n5. Delete Record";
+        cout << "\n6. Show All Records";
+        cout << "\n7. Exit";
+        cout << "\nEnter your choice: ";
+
+        while (!(cin >> choice)) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Invalid input. Please enter a number from 1 to 7: ";
+        }
+
+        switch (choice) {
+            case 1: list.insert(); break;
+            case 2: list.search(); break;
+            case 3: list.count(); break;
+            case 4: list.update(); break;
+            case 5: list.deleteRecord(); break;
+            case 6: list.showAll(); break;
+            case 7: exit(0);
+            default: cout << "\nInvalid Choice!";
+        }
+
+        cout << "\nPress any key to continue...";
+        getch();
+    } while (true);
+
+    return 0;
+}
