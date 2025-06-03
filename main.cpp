@@ -387,6 +387,49 @@ while (true) {
     
 
 
+    void deleteRecord() {
+        if (head == NULL) {
+            cout << "\nList is Empty!\n";
+            return;
+        }
+
+        int id;
+        cout << "\nEnter Student ID to Delete (0 to cancel): ";
+        while (!(cin >> id)) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Invalid input. Please enter a valid numeric ID: ";
+        }
+
+        if (id == 0) {
+            cout << "Deletion cancelled.\n";
+            return;
+        }
+Node* temp = head;
+        while (temp != NULL) {
+            if (temp->roll_no == id) {
+                if (temp == head) {
+                    head = head->next;
+                    if (head) head->prev = NULL;
+                    else tail = NULL;
+                } else if (temp == tail) {
+                    tail = tail->prev;
+                    tail->next = NULL;
+                } else {
+                    temp->prev->next = temp->next;
+                    temp->next->prev = temp->prev;
+                }
+                delete temp;
+                saveToFile();
+                cout << "\nRecord Deleted Successfully!\n";
+                return;
+            }
+            temp = temp->next;
+        }
+        cout << "\nStudent Not Found!\n";
+    }
+
+    
 
 
 
