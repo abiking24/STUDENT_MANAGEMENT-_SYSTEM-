@@ -102,6 +102,91 @@ public:
     
 
 
+    void insert() {
+        Node* new_node = new Node();
+        int id;
+
+        while (true) {
+            cout << "\nEnter Student ID (0 to cancel): ";
+            while (!(cin >> id)) {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "Invalid input. Please enter a valid numeric ID: ";
+            }
+
+            if (id == 0) {
+                delete new_node;
+                cout << "Insertion cancelled.\n";
+                return;
+            }
+
+            if (!isIDUnique(id)) {
+                cout << "This ID already exists. Please enter a unique ID.\n";
+            } else {
+                break;
+            }
+        }
+
+        new_node->roll_no = id;
+
+        cout << "Enter Student Name (0 to cancel): ";
+        cin.ignore();
+        getline(cin, new_node->name);
+        if (new_node->name == "0") {
+            delete new_node;
+            cout << "Insertion cancelled.\n";
+            return;
+        }
+
+        cout << "Enter Course (0 to cancel): ";
+        getline(cin, new_node->course);
+        if (new_node->course == "0") {
+            delete new_node;
+            cout << "Insertion cancelled.\n";
+            return;
+        }
+
+        cout << "Enter Qualification (0 to cancel): ";
+        getline(cin, new_node->quali);
+        if (new_node->quali == "0") {
+            delete new_node;
+            cout << "Insertion cancelled.\n";
+            return;
+        }
+
+while (true) {
+            cout << "Enter Phone No (10+ digits, 0 to cancel): ";
+            getline(cin, new_node->phone_no);
+            if (new_node->phone_no == "0") {
+                delete new_node;
+                cout << "Insertion cancelled.\n";
+                return;
+            }
+            if (validatePhone(new_node->phone_no)) break;
+            cout << "Invalid phone number. Must be digits only and at least 10 digits.\n";
+        }
+
+        cout << "Enter Address (0 to cancel): ";
+        getline(cin, new_node->address);
+        if (new_node->address == "0") {
+            delete new_node;
+            cout << "Insertion cancelled.\n";
+            return;
+        }
+
+        new_node->next = NULL;
+        new_node->prev = tail;
+
+        if (head == NULL) {
+            head = tail = new_node;
+        } else {
+            tail->next = new_node;
+            tail = new_node;
+        }
+        saveToFile();
+        cout << "\nRecord Inserted Successfully!\n";
+    }
+     
 
 
 
