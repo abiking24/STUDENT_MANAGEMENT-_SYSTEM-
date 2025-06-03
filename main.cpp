@@ -292,6 +292,100 @@ while (true) {
     }
 
 
+    
+    void count() {
+        int count = 0;
+        Node* temp = head;
+        while (temp != NULL) {
+            count++;
+            temp = temp->next;
+        }
+        cout << "\nTotal Records: " << count << endl;
+    }
+
+    void update() {
+        if (head == NULL) {
+            cout << "\nList is Empty!\n";
+            return;
+        }
+
+        int id;
+        cout << "\nEnter Student ID to Update (0 to cancel): ";
+        while (!(cin >> id)) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Invalid input. Please enter a valid numeric ID: ";
+        }
+
+        if (id == 0) {
+            cout << "Update cancelled.\n";
+            return;
+        }
+
+        Node* temp = head;
+        while (temp != NULL) {
+            if (temp->roll_no == id) {
+                string input;
+                cout << "\nEnter New Details (press Enter to keep current value, 0 to cancel):\n";
+
+                cout << "Name [" << temp->name << "]: ";
+                cin.ignore();
+                getline(cin, input);
+                if (input == "0") {
+                    cout << "Update cancelled.\n";
+                    return;
+                }
+                if (!input.empty()) temp->name = input;
+
+                cout << "Course [" << temp->course << "]: ";
+                getline(cin, input);
+                if (input == "0") {
+                    cout << "Update cancelled.\n";
+                    return;
+                }
+                if (!input.empty()) temp->course = input;
+
+                cout << "Qualification [" << temp->quali << "]: ";
+                getline(cin, input);
+                if (input == "0") {
+                    cout << "Update cancelled.\n";
+                    return;
+                }
+                if (!input.empty()) temp->quali = input;
+
+                while (true) {
+                    cout << "Phone No [" << temp->phone_no << "]: ";
+                    getline(cin, input);
+                    if (input == "0") {
+                        cout << "Update cancelled.\n";
+                        return;
+                    }
+                    if (input.empty()) break;
+                    if (validatePhone(input)) {
+                        temp->phone_no = input;
+                        break;
+                    }
+                    cout << "Invalid phone number. Must be digits only and at least 10 digits.\n";
+                }
+
+                cout << "Address [" << temp->address << "]: ";
+                getline(cin, input);
+                if (input == "0") {
+                    cout << "Update cancelled.\n";
+                    return;
+                }
+                if (!input.empty()) temp->address = input;
+
+                saveToFile();
+                cout << "\nRecord Updated Successfully!\n";
+                return;
+            }
+            temp = temp->next;
+        }
+        cout << "\nStudent Not Found!\n";
+    }
+    
+
 
 
 
